@@ -1,0 +1,26 @@
+name: Parse Basic Items
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  parse-basic-items:
+    runs-on: ubuntu-latest
+    steps:
+      -   name: Check out the repository
+          uses: actions/checkout@v3
+
+      -   name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '20'
+
+      -   name: Install dependencies
+          run: npm install @octokit/rest @octokit/core @octokit/plugin-create-or-update-text-file node-fetch
+
+      -   name: Run Script
+          run: node .github/scripts/parse_basic_items.mjs
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_CONTEXT: ${{ toJson(github) }}
