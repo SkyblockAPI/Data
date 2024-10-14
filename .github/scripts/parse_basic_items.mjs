@@ -4,7 +4,7 @@ import process from "node:process";
 import {createOrUpdateTextFile} from "@octokit/plugin-create-or-update-text-file";
 import fs from "fs";
 
-const ids = JSON.parse(fs.readFileSync("./1_8_9_to_1_21_1.json", "utf-8"))
+const ids = JSON.parse(fs.readFileSync(".github/scripts/1_8_9_to_1_21_1.json", "utf-8"))
 
 const getItemId = (item) => {
     const id = item.material + (item.durability ? ":" + item.durability : "")
