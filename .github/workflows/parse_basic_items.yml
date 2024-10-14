@@ -1,6 +1,7 @@
 name: Parse Basic Items
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 * * * *'
 
