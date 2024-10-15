@@ -4,6 +4,8 @@ import process from "node:process";
 import {createOrUpdateTextFile} from "@octokit/plugin-create-or-update-text-file";
 import fs from "fs";
 
+const colorCodeRegex = /%%\w+%%/g
+
 const ids = JSON.parse(fs.readFileSync(".github/scripts/1_8_9_to_1_21_1.json", "utf-8"))
 
 const getItemId = (item) => {
@@ -24,7 +26,7 @@ const convertItem = (item) => {
                 show_in_tooltip: false
             },
             'minecraft:hide_additional_tooltip': {},
-            'minecraft:custom_name': `"${item.name}"`,
+            'minecraft:custom_name': `"${item.name.replaceAll(colorCodeRegex, "")}"`,
             'minecraft:enchantment_glint_override': item.glowing ? true : undefined,
             'minecraft:profile': item.skin ? {
                 properties: [
