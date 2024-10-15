@@ -60,6 +60,11 @@ async function run() {
             items[item.id] = convertItem(item)
         }
 
+        const sorted = Object.keys(items).sort().reduce((obj, key) => {
+            obj[key] = items[key];
+            return obj;
+        });
+
         await octokit.createOrUpdateTextFile({
             owner: context.repository_owner,
             repo: context.repository.split("/")[1],
@@ -67,7 +72,7 @@ async function run() {
             message: "Update items.json",
             content: JSON.stringify({
                 updated: data.lastUpdated,
-                items: items
+                items: sorted
             })
         })
     } else {
