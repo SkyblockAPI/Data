@@ -63,7 +63,7 @@ async function run() {
         const sorted = Object.keys(items).sort().reduce((obj, key) => {
             obj[key] = items[key];
             return obj;
-        });
+        }, {});
 
         await octokit.createOrUpdateTextFile({
             owner: context.repository_owner,
