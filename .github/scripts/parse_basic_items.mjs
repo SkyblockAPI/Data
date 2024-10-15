@@ -24,7 +24,7 @@ const convertItem = (item) => {
                 show_in_tooltip: false
             },
             'minecraft:hide_additional_tooltip': {},
-            'minecraft:custom_name': `${item.name}`,
+            'minecraft:custom_name': `"${item.name}"`,
             'minecraft:enchantment_glint_override': item.glowing ? true : undefined,
             'minecraft:profile': item.skin ? {
                 properties: [
