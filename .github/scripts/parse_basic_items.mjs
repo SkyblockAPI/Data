@@ -65,18 +65,10 @@ async function run() {
             repo: context.repository.split("/")[1],
             path: "items.json",
             message: "Update items.json",
-            content({ exists, content}) {
-                if (exists) {
-                    const old = JSON.parse(content)
-                    if (old.updated === data.lastUpdated) {
-                        return JSON.stringify(old)
-                    }
-                }
-                return JSON.stringify({
-                    updated: data.lastUpdated,
-                    items: items
-                })
-            }
+            content: JSON.stringify({
+                updated: data.lastUpdated,
+                items: items
+            })
         })
     } else {
         throw new Error("Failed to fetch items from Hypixel API")
