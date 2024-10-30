@@ -32,7 +32,8 @@ const convertItem = (item) => {
                 properties: [
                     {
                         name: "textures",
-                        value: item.skin
+                        value: typeof item.skin === "string" ? item.skin : item.skin.value,
+                        signature: typeof item.skin === "string" ? undefined : item.skin.signature
                     }
                 ]
             } : undefined,
