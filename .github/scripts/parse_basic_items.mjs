@@ -58,9 +58,11 @@ async function run() {
 
     if (data.success) {
         const items = {}
+        const nameToId = {}
 
         for (let item of data.items) {
             items[item.id] = convertItem(item)
+            nameToId[item.id] = item.name.replaceAll(colorCodeRegex, "")
         }
 
         const sorted = Object.keys(items).sort().reduce((obj, key) => {
@@ -76,6 +78,17 @@ async function run() {
             content: JSON.stringify({
                 updated: data.lastUpdated,
                 items: sorted
+            })
+        })
+
+        await octokit.createOrUpdateTextFile({
+            owner: context.repository_owner,
+            repo: context.repository.split("/")[1],
+            path: "namesToId.json",
+            message: "Update namesToId.json",
+            content: JSON.stringify({
+                updated: data.lastUpdated,
+                items: nameToId
             })
         })
     } else {
